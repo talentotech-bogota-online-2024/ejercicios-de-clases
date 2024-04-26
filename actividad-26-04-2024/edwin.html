@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Concentrese</title>
+    <style></style>
+  </head>
+
+  <body>
+    <style>
+      .container {
+        width: 100vh;
+        display: flex;
+        justify-content: center;
+      }
+      form {
+        background-color: aqua;
+      }
+    </style>
+    <h1>Números aleatorios</h1>
+
+    <p>por favor seleccione un número aleatorio</p>
+    <p>y asi se gana la rifa</p>
+    <div class="container">
+      <div>
+        <button onclick="generateRandomNumber()">
+          Generar número aleatorio
+        </button>
+        <input type="text" id="randomNumberInput" />
+        <br />
+        <button onclick="generateRandomNumber()">
+          Generar número aleatorio
+        </button>
+        <input type="text" id="randomNumberInput2" />
+        <br />
+        <button onclick="generateRandomNumber()">
+          Generar número aleatorio
+        </button>
+        <input type="text" id="randomNumberInput3" />
+      </div>
+
+      <div id="respuesta"></div>
+    </div>
+    <main></main>
+    <script>
+      function generateRandomNumber() {
+        // Genera un número aleatorio entre 0 y 100
+        var randomNumber = Math.floor(Math.random() * 100);
+        var randomNumber2 = Math.floor(Math.random() * 100);
+        var randomNumber3 = Math.floor(Math.random() * 100);
+
+        // Asigna el número aleatorio al input
+        document.getElementById("randomNumberInput").value = randomNumber;
+        document.getElementById("randomNumberInput2").value = randomNumber2;
+        document.getElementById("randomNumberInput3").value = randomNumber3;
+      }
+    </script>
+  </body>
+</html>

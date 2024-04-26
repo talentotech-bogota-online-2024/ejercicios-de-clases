@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <style>
+      body {
+        justify-content: center;
+        background-color: aqua;
+      }
+    </style>
+    <script type="text/javascript">
+      function registrar() {
+        let cant = 0;
+        let balotas = [];
+        let i;
+        let bal;
+
+        cant = parseInt(prompt("Registra cantidad jugadores :"));
+        for (i = 1; i <= cant; i++) {
+          bal = parseInt(prompt("Registra numero : " + i));
+          balotas.push(bal);
+        }
+
+        // ahora saco el ganador
+
+        let gana = 0;
+        gana = Math.floor(Math.random() * cant) + 1;
+        document.balota.ganador.value = balotas[gana - 1];
+      }
+    </script>
+  </head>
+
+  <body onload="registrar()">
+    <form name="balota">
+      <p>Ganador</p>
+      <br />
+      <input type="text" name="ganador" value="0" size="12" />
+      <br />
+    </form>
+  </body>
+</html>

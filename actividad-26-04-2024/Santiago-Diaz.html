@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sorteo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+      }
+
+      li {
+        margin: 10px;
+      }
+
+      label {
+        cursor: pointer;
+      }
+
+      #respuesta {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="respuesta">
+      <h1>Bienvenido</h1>
+      <h1>Agregar Números del 1 al 100</h1>
+      <input type="number" id="numberInput" />
+      <button onclick="addNumber()">Add</button>
+      <ul id="numbersList"></ul>
+      <button onclick="chooseNumber()">Elegir número</button>
+    </div>
+
+    <script type="text/javascript">
+      let numbers = [];
+      const numberInput = document.getElementById("numberInput");
+      const addButton = document.getElementById("addButton");
+      const numbersList = document.getElementById("numbersList");
+
+      addButton.addEventListener("click", addNumber);
+
+      function addNumber() {
+        let number = parseInt(numberInput.value);
+
+        if (!isNaN(number)) {
+          numbers.push(number);
+          updateNumbersList();
+          numberInput.value = "";
+        } else {
+          alert("Please enter a valid number.");
+        }
+      }
+
+      function updateNumbersList() {
+        numbersList.innerHTML = "";
+        for (let i = 0; i < numbers.length; i++) {
+          let listItem = document.createElement("li");
+          listItem.textContent = numbers[i];
+          numbersList.appendChild(listItem);
+        }
+      }
+      function chooseNumber() {
+        let randomNumber = Math.floor(Math.random() * numbers.length);
+        let selectNumber = numbers[randomNumber];
+        alert("El número elegido es: " + selectNumber);
+      }
+    </script>
+  </body>
+</html>

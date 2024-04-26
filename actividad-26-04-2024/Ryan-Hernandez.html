@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteo de Números</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: bisque;
+  }
+  .contenedor {
+    margin: 0 auto;
+    margin-top: 100px;
+    display: inline-block;
+    padding: 150px;
+    background-color: lightblue;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  input[type="number"] {
+    width: 60px;
+    margin: 0 5px;
+    text-align: center;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+    <h1>Saca la balota ganadora</h1>
+
+    <div class="contenedor">
+        <h2>Escoja un numero y se el ganador</h2>
+        <label for="min">Mínimo:</label>
+        <input type="number" id="min" min="1" value="1">
+        <label for="max">Máximo:</label>
+        <input type="number" id="max" min="1" value="100">
+        <br><br>
+        <label for="balls">Balotas:</label>
+        <input type="number" id="balls" min="1" value="1">
+        <br><br>
+        <label for="chosenNumbers">Elige los números:</label>
+        <input type="text" id="chosenNumbers" placeholder="Escribe los números separados por coma">
+        <br><br>
+        <button onclick="sortear()">Sortear</button>
+        <br><br>
+        <div id="resultado"></div>
+    </div>
+    
+    <script>
+        function sortear() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+            const balls = parseInt(document.getElementById('balls').value);
+            const chosenNumbersInput = document.getElementById('chosenNumbers').value;
+            
+            if (min >= max || balls > (max - min + 1)) {
+              alert('Por favor, ingresa valores válidos.');
+              return;
+            }
+            
+            const chosenNumbersArray = chosenNumbersInput.split(',').map(num => parseInt(num.trim()));
+            
+            const numeros = [];
+            while (numeros.length < balls) {
+              const num = Math.floor(Math.random() * chosenNumbersArray.length);
+              if (!numeros.includes(chosenNumbersArray[num])) {
+                numeros.push(chosenNumbersArray[num]);
+              }
+            }
+            
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = 'Balotas seleccionadas: ' + numeros.join(', ') + '<br>';
+            resultadoDiv.innerHTML += '¡Felicidades! El número ganador es ' + numeros[0] + '.';
+          }
+    </script>
+</body>
+</html>

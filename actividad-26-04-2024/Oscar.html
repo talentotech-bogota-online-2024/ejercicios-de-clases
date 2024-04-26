@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos Independientes</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        width: 100vh;
+        display: flex;
+        justify-content: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 200px;
+        width: 300px;
+        background-color: rgb(84, 72, 151);
+        border-radius: 10%;
+        padding: 20px;
+      }
+      label {
+        margin-bottom: 20px;
+      }
+    </style>
+
+    <div class="container">
+      <form name="calc">
+        <label for="number">Por favor ingrese el numero de jugadores</label>
+        <input type="number" name="numero" value="0" size="12" />
+        <br />
+        <label for="jugadores">Por favor ingrese sus numeros</label>
+        <input type="text" name="jugadores" value="0" size="12" />
+        <br />
+        <input type="button" value="Participa" onclick="aleatorio()" />
+        <br />
+        <input type="text" name="result" value="0" size="12" />
+      </form>
+    </div>
+
+    <script>
+      const aleatorio = () => {
+        let number = document.calc.numero.value;
+        let jugadores = document.calc.jugadores.value;
+        let array = jugadores.split(",");
+        let random = Math.floor(Math.random() * array.length);
+        array.forEach((number) => {
+          if (number == array[random]) {
+            document.calc.result.value = `Gano ${number}`;
+          }
+        });
+        console.log(array);
+      };
+    </script>
+  </body>
+</html>

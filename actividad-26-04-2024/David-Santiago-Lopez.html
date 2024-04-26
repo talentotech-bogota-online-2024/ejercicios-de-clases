@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo de Números</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #numerosIngresados {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sorteo de Números</h1>
+      <p>Ingrese sus 20 números (del 1 al 100) uno por uno:</p>
+      <input
+        type="number"
+        id="numero"
+        min="1"
+        max="100"
+        placeholder="Ingrese un número"
+      />
+      <br /><br />
+      <button onclick="agregarNumero()">Agregar Número</button>
+      <button onclick="realizarSorteo()">Realizar Sorteo</button>
+      <div id="numerosIngresados"></div>
+      <div id="resultado"></div>
+    </div>
+
+    <script>
+      var numeros = [];
+
+      function agregarNumero() {
+        var numero = parseInt(document.getElementById("numero").value);
+        if (isNaN(numero) || numero < 1 || numero > 100) {
+          alert("Por favor, ingrese un número válido entre 1 y 100.");
+          return;
+        }
+        if (numeros.length >= 20) {
+          alert("Ya ha ingresado 20 números.");
+          return;
+        }
+        if (numeros.includes(numero)) {
+          alert("Ya ha ingresado este número.");
+          return;
+        }
+        numeros.push(numero);
+        actualizarNumerosIngresados();
+        document.getElementById("numero").value = "";
+      }
+
+      function actualizarNumerosIngresados() {
+        var numerosHTML = "Números ingresados: ";
+        for (var i = 0; i < numeros.length; i++) {
+          numerosHTML += numeros[i];
+          if (i < numeros.length - 1) {
+            numerosHTML += ", ";
+          }
+        }
+        document.getElementById("numerosIngresados").innerHTML = numerosHTML;
+      }
+
+      function realizarSorteo() {
+        if (numeros.length < 20) {
+          alert("Por favor, ingrese 20 números primero.");
+          return;
+        }
+
+        var indiceGanador = Math.floor(Math.random() * 20);
+        var numeroGanador = numeros[indiceGanador];
+        document.getElementById("resultado").innerHTML =
+          "El número ganador es: " + numeroGanador;
+      }
+    </script>
+  </body>
+</html>

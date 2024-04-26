@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sorteo</h1>
+      <label for="playerCount">Número de jugadores:</label>
+      <input type="number" id="playerCount" min="1" value="5" />
+      <label for="numberRangeMin">Rango de números (mínimo):</label>
+      <input type="number" id="numberRangeMin" min="1" value="1" />
+      <label for="numberRangeMax">Rango de números (máximo):</label>
+      <input type="number" id="numberRangeMax" min="2" value="100" />
+      <div class="player-numbers">
+        <h2>Tus números:</h2>
+        <div id="playerNumbers"></div>
+      </div>
+      <button onclick="generatePlayerNumbers()">Ingresar números</button>
+      <div class="winning-number">
+        <h2>Número ganador:</h2>
+        <div id="winningNumber"></div>
+      </div>
+      <button onclick="chooseWinner()">Elegir ganador</button>
+
+      <script>
+        let playerNumbersArray = [];
+
+        function generatePlayerNumbers() {
+          const playerCount = parseInt(
+            document.getElementById("playerCount").value
+          );
+          const numberRangeMin = parseInt(
+            document.getElementById("numberRangeMin").value
+          );
+          const numberRangeMax = parseInt(
+            document.getElementById("numberRangeMax").value
+          );
+          const playerNumbers = document.getElementById("playerNumbers");
+
+          playerNumbers.innerHTML = "";
+          playerNumbersArray = [];
+
+          for (let i = 0; i < playerCount; i++) {
+            let playerNumber;
+            do {
+              playerNumber = parseInt(
+                prompt(
+                  `Jugador ${
+                    i + 1
+                  }, ingresa un número entre ${numberRangeMin} y ${numberRangeMax}:`
+                )
+              );
+            } while (
+              isNaN(playerNumber) ||
+              playerNumber < numberRangeMin ||
+              playerNumber > numberRangeMax
+            );
+
+            const numberSpan = document.createElement("span");
+            numberSpan.textContent = playerNumber;
+            playerNumbers.appendChild(numberSpan);
+            playerNumbersArray.push(playerNumber);
+          }
+        }
+
+        function chooseWinner() {
+          const winningNumber = document.getElementById("winningNumber");
+          const winnerIndex = Math.floor(
+            Math.random() * playerNumbersArray.length
+          );
+          const winnerNumber = playerNumbersArray[winnerIndex];
+          const numberSpan = document.createElement("span");
+          numberSpan.textContent = winnerNumber;
+          winningNumber.innerHTML = "";
+          winningNumber.appendChild(numberSpan);
+        }
+      </script>
+    </div>
+  </body>
+</html>
+
+body { background-color: black; color: white; font-family: Arial, sans-serif;
+margin: 0; padding: 0; display: flex; justify-content: center; align-items:
+center; height: 100vh; } .container { width: 400px; padding: 20px;
+background-color: black; border-radius: 5px; text-align: center; } h1, h2 {
+margin-top: 0; } input, button { font-size: 16px; padding: 5px 10px;
+border-radius: 5px; border: none; margin-bottom: 10px; } button {
+background-color: #ff00ff; color: white; cursor: pointer; } .player-numbers,
+.winning-number { margin-bottom: 20px; } .player-numbers div, .winning-number
+div { display: flex; flex-wrap: wrap; justify-content: center; } .player-numbers
+div span, .winning-number div span { background-color: #ff00ff; color: white;
+padding: 5px 10px; border-radius: 5px; margin: 5px; }

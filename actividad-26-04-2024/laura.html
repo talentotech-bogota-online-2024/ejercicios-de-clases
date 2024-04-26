@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo Aleatorio</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        background-color: aquamarine;
+      }
+
+      .seleccion-numeros {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+      }
+
+      .resultado {
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      .participantes {
+        margin-bottom: 20px;
+      }
+
+      .participante {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+
+      .participante span {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>¡Sorteo Aleatorio!</h1>
+    <p>Elige tu número de la suerte (entre 1 y 100):</p>
+    <div class="seleccion-numeros">
+      <input type="number" id="numero" min="1" max="100" required />
+    </div>
+    <button onclick="sortear()">¡Sortear!</button>
+    <div id="resultado" class="resultado"></div>
+
+    <div class="participantes">
+      <h2>Participantes</h2>
+      <div id="participantes-lista"></div>
+    </div>
+
+    <button onclick="agregarParticipante()">Agregar Participante</button>
+    <button
+      onclick="eliminarParticipante(prompt('Ingresa el nombre del participante a eliminar:'))"
+    >
+      Eliminar Participante
+    </button>
+
+    <script>
+      function agregarParticipante() {
+        const nombreParticipante = prompt(
+          "Ingresa el nombre del participante:"
+        );
+        if (nombreParticipante) {
+          const participanteHTML = `<div class="participante"><span>${nombreParticipante}</span><input type="checkbox" id="${nombreParticipante.toLowerCase()}" checked></div>`;
+          document.getElementById("participantes-lista").innerHTML +=
+            participanteHTML;
+        }
+      }
+
+      function eliminarParticipante(nombreParticipante) {
+        const participanteElement = document.getElementById(
+          nombreParticipante.toLowerCase()
+        );
+        if (participanteElement) {
+          participanteElement.parentNode.removeChild(participanteElement);
+        }
+      }
+
+      function sortear() {
+        // Get the selected participants
+        const seleccionados = [];
+        const participantesCheckboxes = document.querySelectorAll(
+          ".participante input[type=checkbox]:checked"
+        );
+        for (const checkbox of participantesCheckboxes) {
+          seleccionados.push(checkbox.id);
+        }
+
+        // If no participants are selected, show an error
+        if (seleccionados.length === 0) {
+          alert("¡Debes seleccionar al menos un participante!");
+          return;
+        }
+
+        // Generate a random participant index
+        const indiceGanador = Math.floor(Math.random() * seleccionados.length);
+        const participanteGanador = seleccionados[indiceGanador];
+
+        // Display the winner
+        document.getElementById(
+          "resultado"
+        ).innerHTML = `¡Felicidades! El ganador es: ${participanteGanador}`;
+      }
+    </script>
+  </body>
+</html>

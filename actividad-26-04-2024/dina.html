@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>loteria</title>
+    <style>
+      .form {
+        background-color: azure;
+        font-size: 20px;
+      }
+    </style>
+    <script>
+      function calculo() {
+        var min = 1;
+        var max = 100;
+        var result = Math.floor(Math.random() * (max - min + 1) + min);
+        document.loteria.resultado.value = result;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="form">
+      <form name="loteria">
+        <p>Bienvenido elija un número para la loteria de 1 a 100</p>
+        <input type="number" name="numero" value="0" />
+        <p>El número ganador es:</p>
+        <input type="text" name="resultado" value="0" />
+        <input type="button" value="Dar ganador" onclick="calculo()" />
+      </form>
+    </div>
+  </body>
+</html>

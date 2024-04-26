@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo de Balotas</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .balota {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 2px solid #333;
+        border-radius: 50%;
+        margin: 5px;
+        cursor: pointer;
+      }
+      .selected {
+        background-color: #333;
+        color: #fff;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      .resultado {
+        margin-top: 20px;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sorteo de Balotas</h1>
+      <div>
+        <h2>Selecciona tus balotas:</h2>
+        <div id="balotas"></div>
+      </div>
+      <button onclick="sortear()">¡Sortear!</button>
+      <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+      function crearBalotas() {
+        const balotasContainer = document.getElementById("balotas");
+        for (let i = 1; i <= 100; i++) {
+          const balota = document.createElement("div");
+          balota.classList.add("balota");
+          balota.textContent = i;
+          balota.onclick = function () {
+            balota.classList.toggle("selected");
+          };
+          balotasContainer.appendChild(balota);
+        }
+      }
+
+      function sortear() {
+        const seleccionadas = document.querySelectorAll(".selected");
+        if (seleccionadas.length < 1) {
+          alert("Por favor selecciona al menos 6 balotas.");
+          return;
+        }
+        const numeros = [];
+        seleccionadas.forEach((balota) => {
+          numeros.push(parseInt(balota.textContent));
+        });
+        const numerosSorteo = [];
+        while (numerosSorteo.length < 1) {
+          const randomIndex = Math.floor(Math.random() * numeros.length);
+          const numeroSorteo = numeros[randomIndex];
+          if (!numerosSorteo.includes(numeroSorteo)) {
+            numerosSorteo.push(numeroSorteo);
+          }
+        }
+        const resultadoContainer = document.getElementById("resultado");
+        resultadoContainer.textContent =
+          "Numero Ganador: " + numerosSorteo.sort((a, b) => a - b).join(", ");
+      }
+
+      window.onload = crearBalotas;
+    </script>
+  </body>
+</html>

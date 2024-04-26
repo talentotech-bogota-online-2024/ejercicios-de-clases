@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sorteo de Números</h2>
+      <form id="numberForm">
+        <label for="numeros">Ingresa los números separados por comas:</label>
+        <input type="text" id="numeros" name="numeros" required />
+
+        <input type="submit" value="Realizar Sorteo" />
+      </form>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("numberForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          let numerosString = document.getElementById("numeros").value.trim();
+          let numerosArray = numerosString
+            .split(",")
+            .map((numero) => parseInt(numero.trim()))
+            .filter((numero) => !isNaN(numero));
+
+          if (numerosArray.length === 0) {
+            alert("Por favor, ingresa al menos un número.");
+            return;
+          }
+
+          let numeroAleatorio =
+            numerosArray[Math.floor(Math.random() * numerosArray.length)];
+
+          document.getElementById("result").innerText =
+            "El número ganador es : " + numeroAleatorio;
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Probabilidad independiente</title>
+    <style>
+      :root {
+        font-size: 65%;
+      }
+      body {
+        background-color: #b03643;
+
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        margin-top: 2.5rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .title {
+        width: 50vmax;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: #110303;
+        font-weight: 700;
+      }
+      .formulario {
+        display: flex;
+        width: 40vmax;
+        padding-top: 1.8rem;
+        padding-bottom: 4rem;
+        flex-direction: column;
+        align-items: center;
+        background-color: #8a1127;
+      }
+      .ingreso {
+        font-size: 1.8rem;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .ingreso input {
+        width: 24.5vmax;
+        height: 2.5rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+      .btn button {
+        width: 10vmax;
+        height: 3vmax;
+        margin-bottom: 2rem;
+      }
+      .resultado input {
+        width: 32vmax;
+        height: 7vmax;
+        background-color: #bcc7b6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <p>Bienvenido en este programa se hara un sorteo del 1 al 100</p>
+        <p>
+          A continuación ingrese un valor y se sorteara la balota para el
+          posible ganador, separa cada valor con una coma
+        </p>
+      </div>
+      <form class="formulario">
+        <div class="ingreso">
+          <span>Balotas</span
+          ><input
+            type="text"
+            placeholder="Ingrese valores del 1 al 100 separados por una coma"
+            id="balota"
+          />
+        </div>
+        <div class="btn">
+          <button id="btnRes">Resultado</button>
+        </div>
+        <div class="resultado">
+          <input type="text" id="result" readonly />
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const balota = document.getElementById("balota");
+    const btnRes = document.getElementById("btnRes");
+    const result = document.getElementById("result");
+
+    btnRes.addEventListener("click", resultado);
+
+    function numeroAleatorio(array) {
+      let indiceAleatorio = Math.floor(Math.random() * array.length);
+
+      return array[indiceAleatorio];
+    }
+
+    function resultado(event) {
+      event.preventDefault();
+      result.value = " ";
+      let b = balota.value.split(",");
+      let balotaAleatoria = numeroAleatorio(b);
+
+      result.value += `El número ganador es ${balotaAleatoria}`;
+    }
+  </script>
+</html>

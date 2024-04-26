@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo de Balotas</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      #balotas-container {
+        margin-bottom: 20px;
+      }
+
+      .balota {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin: 5px;
+        line-height: 40px;
+        font-size: 20px;
+      }
+
+      .selected {
+        background-color: #ff0000;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sorteo de Balotas</h1>
+      <div id="balotas-container"></div>
+      <button onclick="realizarSorteo()">Realizar Sorteo</button>
+    </div>
+    <script>
+      function realizarSorteo() {
+        var cantidadBalotas = prompt(
+          "Ingrese la cantidad de balotas a sortear:"
+        );
+        cantidadBalotas = parseInt(cantidadBalotas);
+
+        if (isNaN(cantidadBalotas) || cantidadBalotas <= 0) {
+          alert("Por favor, ingrese un número válido mayor que cero.");
+          return;
+        }
+
+        var balotasContainer = document.getElementById("balotas-container");
+        balotasContainer.innerHTML = "";
+
+        for (var i = 1; i <= cantidadBalotas; i++) {
+          var balota = document.createElement("div");
+          balota.classList.add("balota");
+          balota.textContent = i;
+          balotasContainer.appendChild(balota);
+        }
+
+        var balotas = document.getElementsByClassName("balota");
+
+        for (var j = 0; j < balotas.length; j++) {
+          balotas[j].addEventListener("click", function () {
+            this.classList.toggle("selected");
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

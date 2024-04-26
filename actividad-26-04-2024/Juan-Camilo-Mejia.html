@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo</title>
+    <style>
+      body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        background-color: #ffd700;
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #ffcc00;
+      }
+
+      .number-container {
+        float: left;
+        margin-right: 20px;
+      }
+    </style>
+    <script>
+      var participantes = [];
+
+      function agregarParticipante() {
+        var nuevoNumero = parseInt(
+          prompt("Ingrese el número del participante:")
+        );
+        if (!isNaN(nuevoNumero)) {
+          if (!participantes.includes(nuevoNumero)) {
+            participantes.push(nuevoNumero);
+            actualizarNumeros();
+            alert("Número agregado correctamente.");
+          } else {
+            alert(
+              "Este número ya fue ingresado. Por favor, ingrese otro número."
+            );
+          }
+        } else {
+          alert("Por favor, ingrese un número válido.");
+        }
+      }
+
+      function sorteo() {
+        if (participantes.length > 0) {
+          var aleatorioIndex = Math.floor(Math.random() * participantes.length);
+          var opcionSeleccionada = participantes[aleatorioIndex];
+          document.getElementById("resultadoSorteo").value = opcionSeleccionada;
+        } else {
+          alert(
+            "Por favor, ingrese al menos un número de participante antes de realizar el sorteo."
+          );
+        }
+      }
+
+      function actualizarNumeros() {
+        var numerosMostrados = participantes.join(", ");
+        document.getElementById("numerosIngresados").innerText =
+          numerosMostrados;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sorteo</h1>
+      <div class="button-container">
+        <button class="button" onclick="agregarParticipante()">
+          Agregar Participante
+        </button>
+        <button class="button" onclick="sorteo()">Realizar Sorteo</button>
+      </div>
+      <div class="number-container">
+        <strong>Números ingresados:</strong>
+        <span id="numerosIngresados"></span>
+      </div>
+      <input type="text" id="resultadoSorteo" value="" size="12" />
+    </div>
+  </body>
+</html>

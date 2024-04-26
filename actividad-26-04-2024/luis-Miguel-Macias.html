@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funciones de java script</title>
+
+    <style>
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #0000ff;
+        align-items: center;
+      }
+      .form {
+        width: 60%;
+        height: 80%;
+        background-color: aquamarine;
+        border: 2px solid black;
+      }
+      label {
+        font-size: xx-large;
+      }
+      form {
+        text-align: center;
+        margin-top: 20vh;
+      }
+      input {
+        margin-top: 5vh;
+        height: 10vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sorteo denumeros</h2>
+      <div class="form">
+        <form name="calc">
+          <label for="numero">
+            ingrese su numero: ingrese los valores de los jugadores despues del
+            valor una coma</label
+          >
+          <br />
+          <input type="text" name="numero" id="numero" />
+          <br />
+          <button onclick="numeroAleatorio()">Enviar</button>
+          <br />
+          <textarea name="resultado" cols="30" rows="3"></textarea>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function numeroAleatorio() {
+        event.preventDefault();
+        let numero = document.calc.numero.value;
+        array = numero.split(",");
+
+        let aleatorio = Math.floor(Math.random() * 100) + 1;
+        let ganadorEncontrado = false;
+
+        for (let i = 0; i < array.length; i++) {
+          const element = array[i];
+          if (element == aleatorio) {
+            document.calc.resultado.value = `el ganador es: ${element}`;
+            ganadorEncontrado = true;
+            break;
+          } else if (element != aleatorio) {
+            document.calc.resultado.value = "haz perdido";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

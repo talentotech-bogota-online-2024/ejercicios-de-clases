@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #000000;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #0d0846;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(237, 235, 235, 0.1);
+        color: aliceblue;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: rgb(238, 238, 122);
+      }
+
+      #seleccionNumeros {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>¡Sorteo!</h1>
+      <p>
+        Ingresa tus balotas (entre 1 y 100), separadas por comas, Elige 5
+        numeros:
+      </p>
+      <input type="text" id="inputNumber" />
+      <button onclick="ingresarNumero()">Ingresar balotas</button>
+      <button onclick="sortear()">Realizar sorteo</button>
+      <div id="seleccionNumeros"></div>
+    </div>
+
+    <script>
+      let enteredNumbers = [];
+
+      function ingresarNumero() {
+        const input = document.getElementById("inputNumber").value;
+        enteredNumbers = input.split(",").map((num) => parseInt(num.trim()));
+
+        if (
+          enteredNumbers.length !== 5 ||
+          enteredNumbers.some((num) => isNaN(num) || num < 1 || num > 100)
+        ) {
+          alert(
+            "Por favor, ingresa 5 números válidos entre 1 y 100 separados por comas."
+          );
+          enteredNumbers = [];
+        } else {
+          document.getElementById("seleccionNumeros").innerText =
+            "Números seleccionados: " + enteredNumbers.join(", ");
+        }
+      }
+
+      function sortear() {
+        if (enteredNumbers.length === 5) {
+          let sortedNumbers = [];
+
+          sortedNumbers = enteredNumbers.slice();
+          // Barajar los números
+          for (let i = sortedNumbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [sortedNumbers[i], sortedNumbers[j]] = [
+              sortedNumbers[j],
+              sortedNumbers[i],
+            ];
+          }
+
+          const winningIndex = Math.floor(Math.random() * sortedNumbers.length);
+          const winningNumber = sortedNumbers[winningIndex];
+
+          alert(
+            "¡Los números sorteados son: " +
+              sortedNumbers.join(", ") +
+              ". El número ganador es: " +
+              winningNumber +
+              "!"
+          );
+        } else {
+          alert("Debes ingresar 5 balotas antes de realizar el sorteo.");
+        }
+      }
+    </script>
+  </body>
+</html>

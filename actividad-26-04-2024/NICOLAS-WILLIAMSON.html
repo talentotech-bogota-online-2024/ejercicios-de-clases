@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo de Balotas</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      #container {
+        margin: 0 auto;
+        width: 300px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        margin-top: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #ganadorSection {
+        margin-top: 30px;
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      #ganadorSection h2 {
+        color: #4caf50;
+        font-size: 24px;
+      }
+
+      #ganadorTexto {
+        font-size: 20px;
+        margin-top: 10px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Sorteo de Balotas</h1>
+      <label for="cantidadUsuarios">Ingrese la cantidad de usuarios:</label>
+      <input type="number" id="cantidadUsuarios" min="1" step="1" />
+      <button onclick="solicitarBalotas()">Continuar</button>
+
+      <!-- Sección para mostrar el ganador -->
+      <div id="ganadorSection" style="display: none">
+        <h2>Ganador</h2>
+        <p id="ganadorTexto"></p>
+      </div>
+    </div>
+
+    <script>
+      var usuarios = [];
+
+      function solicitarBalotas() {
+        var cantidadUsuarios = parseInt(
+          document.getElementById("cantidadUsuarios").value
+        );
+        alert(`El número de usuarios a jugar es ${cantidadUsuarios}`);
+
+        usuarios = [];
+
+        for (var i = 0; i < cantidadUsuarios; i++) {
+          var usuario = prompt(
+            `Usuario ${i + 1}, por favor ingrese el número de su balota:`
+          );
+          usuarios.push(usuario);
+        }
+
+        var usuariosInfo = "";
+        for (var i = 0; i < usuarios.length; i++) {
+          usuariosInfo += `Usuario ${i + 1}: ${usuarios[i]}\n`;
+        }
+        alert(usuariosInfo);
+
+        var ganador = numeroAleatorio();
+        alert(`El número de ganador es la balota ${ganador}`);
+
+        document.getElementById(
+          "ganadorTexto"
+        ).innerText = `El ganador es: ${ganador}`;
+        document.getElementById("ganadorSection").style.display = "block";
+
+        console.log(`El ganador es: ${ganador}`);
+      }
+
+      function numeroAleatorio() {
+        var ganadorIndice = Math.floor(Math.random() * usuarios.length);
+        var ganadorValor = usuarios[ganadorIndice];
+        return ganadorValor;
+      }
+    </script>
+  </body>
+</html>

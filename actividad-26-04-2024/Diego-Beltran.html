@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotería</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #8e7db8;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #156dca;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Lotería</h2>
+      <p>Loteria del curso full stack, selecciona un jugador</p>
+      <p>jugador</p>
+      <input type="text" name="jugador" value="0" size="12" />
+      <button onclick="simularLoteria()">Jugar</button>
+      <div id="resultados"></div>
+    </div>
+
+    <script>
+      function simularLoteria() {
+        //   var jugador; [i = 1, i < 40 , i++]
+        //   jugador.push
+        var numerosGanadores = [];
+        var resultadosHTML = "<h3>Resultados</h3>";
+
+        // Generar números ganadores
+        while (numerosGanadores.length < 1) {
+          var numero = Math.floor(Math.random() * 40) + 1;
+          if (numerosGanadores.indexOf(numero) === -1) {
+            numerosGanadores.push(numero);
+          }
+        }
+
+        // Generar números para los jugadores
+        for (var i = 1; i <= 40; i++) {
+          var numerosJugador = [];
+          while (numerosJugador.length < 1) {
+            var numero = Math.floor(Math.random() * 40) + 1;
+            if (numerosJugador.indexOf(numero) === -1) {
+              numerosJugador.push(numero);
+            }
+          }
+
+          // Comprobar aciertos para el jugador
+          var aciertos = 0;
+          for (var j = 0; j < 2; j++) {
+            if (numerosGanadores.indexOf(numerosJugador[j]) !== -1) {
+              aciertos++;
+            }
+          }
+
+          resultadosHTML +=
+            "<p>Jugador " +
+            i +
+            ": " +
+            numerosJugador.join(", ") +
+            " - Aciertos: " +
+            aciertos +
+            "</p>";
+        }
+
+        // Mostrar resultados
+        document.getElementById("resultados").innerHTML = resultadosHTML;
+      }
+    </script>
+  </body>
+</html>

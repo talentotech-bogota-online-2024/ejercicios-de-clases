@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteo de Participantes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+      }
+
+      .sorteo-container {
+        width: 80%;
+        margin: 50px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      h1 {
+        color: #007bff;
+      }
+
+      .configuracion {
+        margin-bottom: 20px;
+      }
+
+      .configuracion label {
+        margin-right: 10px;
+      }
+
+      .formulario {
+        text-align: left;
+      }
+
+      .formulario input {
+        margin-bottom: 10px;
+        padding: 8px;
+        width: calc(100% - 16px);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .resultado {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sorteo-container">
+      <h1>Sorteo de Participantes</h1>
+      <div class="configuracion">
+        <label for="num-participantes">Número de Participantes:</label>
+        <input type="number" id="num-participantes" min="1" value="1" />
+        <button onclick="generarFormulario()">Generar Formulario</button>
+      </div>
+      <div class="formulario" id="formulario"></div>
+      <button onclick="realizarSorteo()">Realizar Sorteo</button>
+      <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+      var participantes = [];
+
+      function generarFormulario() {
+        var numParticipantes = parseInt(
+          document.getElementById("num-participantes").value
+        );
+        var formulario = document.getElementById("formulario");
+        formulario.innerHTML = "";
+
+        for (var i = 0; i < numParticipantes; i++) {
+          var inputNombre = document.createElement("input");
+          inputNombre.type = "text";
+          inputNombre.placeholder = "Nombre del Participante " + (i + 1);
+          formulario.appendChild(inputNombre);
+
+          var inputNumero = document.createElement("input");
+          inputNumero.type = "number";
+          inputNumero.min = "1";
+          inputNumero.placeholder = "Número elegido";
+          formulario.appendChild(inputNumero);
+
+          formulario.appendChild(document.createElement("br"));
+        }
+      }
+
+      function realizarSorteo() {
+        participantes = [];
+        var formulario = document.getElementById("formulario");
+        var inputsNombre = formulario.getElementsByTagName("input");
+        var numerosElegidos = [];
+
+        for (var i = 0; i < inputsNombre.length; i += 2) {
+          var nombre = inputsNombre[i].value.trim();
+          var numero = parseInt(inputsNombre[i + 1].value);
+
+          if (nombre !== "" && !isNaN(numero) && numero >= 1) {
+            participantes.push({ nombre: nombre, numero: numero });
+            if (numerosElegidos.includes(numero)) {
+              alert("Cada participante debe elegir un número diferente.");
+              return;
+            }
+            numerosElegidos.push(numero);
+          } else {
+            alert(
+              "Por favor ingresa un nombre y un número válido para cada participante."
+            );
+            return;
+          }
+        }
+
+        if (participantes.length < 2) {
+          alert("Debe haber al menos 2 participantes para realizar el sorteo.");
+          return;
+        }
+
+        var ganador =
+          participantes[Math.floor(Math.random() * participantes.length)];
+        var resultado = document.getElementById("resultado");
+        resultado.textContent =
+          "¡El ganador del sorteo es: " +
+          ganador.nombre +
+          " con el número  " +
+          ganador.numero +
+          "!";
+      }
+    </script>
+  </body>
+</html>
